@@ -1,9 +1,13 @@
 package model;
 
 public class DragonCave {
-    private long numberOfTreasures; //Значение поля должно быть больше 0
+    private final long numberOfTreasures;
 
     public DragonCave(long numberOfTreasures) {
+        if (numberOfTreasures <= 0) {
+            throw new IllegalArgumentException("Number of treasures must be greater than 0");
+        }
+
         this.numberOfTreasures = numberOfTreasures;
     }
 

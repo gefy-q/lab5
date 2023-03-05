@@ -3,20 +3,29 @@ package model;
 import java.time.LocalDateTime;
 
 public class Dragon {
-    private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
+    private final Integer id;
+    private final String name;
+    private final Coordinates coordinates;
+    private final LocalDateTime creationDate;
+    private final Integer age;
+    private final String description;
+    private final Double wingspan;
+    private final DragonCharacter character;
+    private final DragonCave cave;
 
-    private Coordinates coordinates; //Поле не может быть null
-    private java.time.LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Integer age; //Значение поля должно быть больше 0, Поле не может быть null
-    private String description; //Поле не может быть null
-    private Double wingspan; //Значение поля должно быть больше 0, Поле не может быть null
-    private DragonCharacter character; //Поле может быть null
-    private DragonCave cave; //Поле не может быть null
+    public Dragon(
+            Integer id,
+            String name,
+            Coordinates coordinates,
+            LocalDateTime creationDate,
+            Integer age,
+            String description,
+            Double wingspan,
+            DragonCharacter character,
+            DragonCave cave
+    ) {
+        validateParameters(id, name, coordinates, creationDate, age, description, wingspan, character, cave);
 
-    public Dragon(Integer id, String name, Coordinates coordinates, LocalDateTime creationDate, Integer age,
-                  String description, Double wingspan, DragonCharacter character, DragonCave cave) {
-        // TODO: validate fields
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
@@ -62,5 +71,65 @@ public class Dragon {
 
     public DragonCave getCave() {
         return cave;
+    }
+
+    private static void validateParameters(
+            Integer id,
+            String name,
+            Coordinates coordinates,
+            LocalDateTime creationDate,
+            Integer age,
+            String description,
+            Double wingspan,
+            DragonCharacter character,
+            DragonCave cave
+    ) {
+        if (id == null) {
+            throw new NullPointerException("Id cannot be null");
+        }
+        if (id <= 0) {
+            throw new IllegalArgumentException("Id must be greater than 0");
+        }
+
+        if (name == null) {
+            throw new NullPointerException("Name cannot be null");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty string");
+        }
+
+        if (coordinates == null) {
+            throw new NullPointerException("Coordinates cannot be null");
+        }
+
+        if (creationDate == null) {
+            throw new NullPointerException("Creation date cannot be null");
+        }
+
+        if (age == null) {
+            throw new NullPointerException("Age cannot be null");
+        }
+        if (age <= 0) {
+            throw new IllegalArgumentException("Age must be greater than 0");
+        }
+
+        if (description == null) {
+            throw new NullPointerException("Description cannot be null");
+        }
+
+        if (wingspan == null) {
+            throw new NullPointerException("Wingspan cannot be null");
+        }
+        if (wingspan <= 0) {
+            throw new IllegalArgumentException("Wingspan must be greater than 0");
+        }
+
+        if (character == null) {
+            throw new NullPointerException("Character cannot be null");
+        }
+
+        if (cave == null) {
+            throw new NullPointerException("Cave cannot be null");
+        }
     }
 }

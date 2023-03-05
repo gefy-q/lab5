@@ -7,16 +7,24 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class ArrayListController implements CollectionController {
-    private ArrayList<Dragon> dragons;
+    private final ArrayList<Dragon> dragons = new ArrayList<>();
 
-    private int getIndexById(Integer id) {
+    private int findIndexById(Integer id) {
         for (int i = 0; i < dragons.size(); ++i) {
             if (dragons.get(i).getId().equals(id)) {
                 return i;
             }
         }
-        // TODO: add exception
-        throw new NoSuchElementException();
+        return -1;
+    }
+
+    private int getIndexById(Integer id) {
+        int index = findIndexById(id);
+        if (id == -1) {
+            // TODO: add exception
+            throw new NoSuchElementException();
+        }
+        return index;
     }
 
     @Override
@@ -27,6 +35,11 @@ public class ArrayListController implements CollectionController {
     @Override
     public void add(Dragon dragon) {
         dragons.add(dragon);
+    }
+
+    @Override
+    public boolean containsId(Integer id) {
+        return findIndexById(id) != -1;
     }
 
     @Override
@@ -52,7 +65,7 @@ public class ArrayListController implements CollectionController {
     @Override
     public void addIfMax(Dragon dragon) {
         for (Dragon value : dragons) {
-            if (value.getId() >= dragon.getId()) {
+            if (value.getCave().getNumberOfTreasures() >= dragon.getCave().getNumberOfTreasures()) {
                 return;
             }
         }
@@ -62,7 +75,7 @@ public class ArrayListController implements CollectionController {
 
     @Override
     public void removeGreater(Dragon dragon) {
-        dragons.removeIf(x -> x.getId() > dragon.getId());
+        dragons.removeIf(x -> x.getCave().getNumberOfTreasures() > dragon.getCave().getNumberOfTreasures());
     }
 
     @Override
