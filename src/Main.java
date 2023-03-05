@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import controllers.CollectionController;
@@ -8,6 +9,7 @@ import model.Coordinates;
 import model.Dragon;
 import model.DragonCave;
 import model.DragonCharacter;
+import representations.json.JsonCollectionControllerRepr;
 import representations.json.JsonDragonRepr;
 
 import java.io.*;
@@ -17,23 +19,40 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        CollectionController controller = new ArrayListController();
-        Menu menu = new Menu();
-        menu.addAction("help", new HelpAction(menu, "", "show help information for available commands"));
-        menu.addAction("add", new AddAction(controller, "{element}", "add new element"));
-//        menu.addAction("update", new UpdateByIdAction(controller, "id {element}", "update element by id"));
-        menu.addAction("remove_by_id", new RemoveByIdAction(controller, "id", "remove element by id"));
-        menu.addAction("clear", new ClearAction(controller, "", "clear collection"));
-        menu.addAction("execute_script", new ExecuteScriptAction(menu, "file_name", "execute script from file"));
-        menu.addAction("exit", new ExitAction("", "exit from program"));
-
-        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(System.out));
+        if (args.length != 1) {
+            System.out.println("Usage: program <data-filename>");
+            return;
+        }
 
         try {
-            writer.write("Welcome! Enter the command. To show instructions type \"help\"\n");
-            writer.flush();
-            menu.run(reader, writer);
+            final String dataFile = args[0];
+
+            CollectionController controller = new ArrayListController();
+            JsonCollectionControllerRepr.read(new InputStreamReader(new FileInputStream(dataFile)), controller);
+            BufferedWriter fileWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(dataFile)));
+
+            Menu menu = new Menu();
+            menu.addAction("help", new HelpAction(menu, "", "show help information for available commands"));
+            menu.addAction("save", new SaveAction(fileWriter, controller, "", "save data to file"));
+            menu.addAction("show", new ShowAction(controller, "", "show dragons"));
+            menu.addAction("add", new AddAction(controller, "{element}", "add new element"));
+//        menu.addAction("update", new UpdateByIdAction(controller, "id {element}", "update element by id"));
+            menu.addAction("remove_by_id", new RemoveByIdAction(controller, "id", "remove element by id"));
+            menu.addAction("clear", new ClearAction(controller, "", "clear collection"));
+            menu.addAction("execute_script", new ExecuteScriptAction(menu, "file_name", "execute script from file"));
+            menu.addAction("exit", new ExitAction("", "exit from program"));
+
+            BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+            BufferedWriter outputWriter = new BufferedWriter(new OutputStreamWriter(System.out));
+
+            try {
+                outputWriter.write("Welcome! Enter the command. To show instructions type \"help\"\n");
+                outputWriter.flush();
+                menu.run(inputReader, outputWriter);
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }

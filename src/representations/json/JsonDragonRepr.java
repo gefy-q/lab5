@@ -1,5 +1,7 @@
 package representations.json;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -25,20 +27,31 @@ public class JsonDragonRepr {
     private final DragonCharacter character;
     private final JsonDragonCaveRepr cave;
 
-    public JsonDragonRepr(Integer id, String name, Coordinates coordinates, LocalDateTime creationDate, Integer age, String description, Double wingspan, DragonCharacter character, DragonCave cave) {
+    @JsonCreator
+    public JsonDragonRepr(
+            @JsonProperty("id") Integer id,
+            @JsonProperty("name") String name,
+            @JsonProperty("coordinates") JsonCoordinatesRepr coordinates,
+            @JsonProperty("creationDate") LocalDateTime creationDate,
+            @JsonProperty("age") Integer age,
+            @JsonProperty("description") String description,
+            @JsonProperty("wingspan") Double wingspan,
+            @JsonProperty("character") DragonCharacter character,
+            @JsonProperty("cave") JsonDragonCaveRepr cave
+    ) {
         this.id = id;
         this.name = name;
-        this.coordinates = new JsonCoordinatesRepr(coordinates);
+        this.coordinates = coordinates;
         this.creationDate = creationDate;
         this.age = age;
         this.description = description;
         this.wingspan = wingspan;
         this.character = character;
-        this.cave = new JsonDragonCaveRepr(cave);
+        this.cave = cave;
     }
 
     public JsonDragonRepr(Dragon dragon) {
-        this(dragon.getId(), dragon.getName(), dragon.getCoordinates(), dragon.getCreationDate(), dragon.getAge(), dragon.getDescription(), dragon.getWingspan(), dragon.getCharacter(), dragon.getCave());
+        this(dragon.getId(), dragon.getName(), new JsonCoordinatesRepr(dragon.getCoordinates()), dragon.getCreationDate(), dragon.getAge(), dragon.getDescription(), dragon.getWingspan(), dragon.getCharacter(), new JsonDragonCaveRepr(dragon.getCave()));
     }
 
     public Dragon toDragon() {

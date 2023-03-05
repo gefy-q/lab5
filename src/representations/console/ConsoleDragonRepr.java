@@ -1,10 +1,15 @@
 package representations.console;
 
+import model.Dragon;
+import model.DragonCave;
 import model.DragonCharacter;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleDragonRepr extends ConsoleRepr {
@@ -77,6 +82,51 @@ public class ConsoleDragonRepr extends ConsoleRepr {
         DragonCharacter character = readDragonCharacter(scanner, writer);
         ConsoleDragonCaveRepr cave = readDragonCave(scanner, writer);
         return new ConsoleDragonRepr(name, coordinates, age, description, wingspan, character, cave);
+    }
+
+    public static void show(Scanner scanner, Writer writer, Dragon dragon) throws IOException {
+        println(writer, "Dragon information:");
+        println(writer, "Id: " + dragon.getId());
+        println(writer, "Name: " + dragon.getName());
+        print(writer, "Coordinates: ");
+        ConsoleCoordinatesRepr.show(scanner, writer, dragon.getCoordinates());
+        println(writer, "creationDate: " + dragon.getCreationDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
+        println(writer, "Age: " + dragon.getAge());
+        println(writer, "Description: " + dragon.getDescription());
+        println(writer, "Wingspan: " + dragon.getWingspan());
+        println(writer, "Character: " + dragon.getCharacter());
+        println(writer, "Cave:");
+        ConsoleDragonCaveRepr.show(scanner, writer, dragon.getCave());
+    }
+
+    public static void show(Scanner scanner, Writer writer, ArrayList<Dragon> dragons) throws IOException {
+        for (int i = 0; i < dragons.size(); ++i) {
+            Dragon dragon = dragons.get(i);
+            println(writer, String.format("%d. Id: %s, Name: %s", i + 1, dragon.getId(), dragon.getName()));
+        }
+
+        print(writer, "Select dragon number or type \"all\" to show the whole list: ");
+        while (true) {
+            if (scanner.hasNextInt()) {
+                int index = scanner.nextInt() - 1;
+                if (index < 0 || index >= dragons.size()) {
+                    println(writer, String.format("Number must be in range [%d, %d]", 1, dragons.size()));
+                    continue;
+                }
+                ConsoleDragonRepr.show(scanner, writer, dragons.get(index));
+                return;
+            } else {
+                String answer = scanner.next().trim().toLowerCase();
+                if (!answer.equals("all")) {
+                    println(writer, "Type number or \"all\"");
+                    continue;
+                }
+                for (Dragon dragon : dragons) {
+                    ConsoleDragonRepr.show(scanner, writer, dragon);
+                }
+                return;
+            }
+        }
     }
 
     private static String readName(Scanner scanner, Writer writer) throws IOException {

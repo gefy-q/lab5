@@ -20,7 +20,7 @@ public class Menu {
         this.actions.put(name, action);
     }
 
-    public void showInstructions(Writer writer) {
+    public void showInstructions(Writer writer) throws IOException {
         if (actions.isEmpty()) {
             return;
         }
@@ -33,22 +33,17 @@ public class Menu {
             argsWidth = Math.max(argsWidth, entry.getValue().getArgs().length());
         }
 
-        try {
-            writer.write("Available commands:\n");
-            for (HashMap.Entry<String, Action> entry : actions.entrySet()) {
-                Action action = entry.getValue();
-                writer.write(String.format(
-                        "%-" + actionsWidth + "s\t%-" + argsWidth + "s\t%s\n",
-                        entry.getKey(),
-                        action.getArgs(),
-                        action.getDescription()
-                ));
-            }
-            writer.flush();
-        } catch (IOException e) {
-            // TODO: add exception handling
-            System.err.println(e.getMessage());
+        writer.write("Available commands:\n");
+        for (HashMap.Entry<String, Action> entry : actions.entrySet()) {
+            Action action = entry.getValue();
+            writer.write(String.format(
+                    "%-" + actionsWidth + "s\t%-" + argsWidth + "s\t%s\n",
+                    entry.getKey(),
+                    action.getArgs(),
+                    action.getDescription()
+            ));
         }
+        writer.flush();
     }
 
     public void run(Reader reader, Writer writer) {

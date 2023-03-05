@@ -21,6 +21,10 @@ public class ConsoleDragonCaveRepr extends ConsoleRepr {
         return new ConsoleDragonCaveRepr(readNumberOfTreasures(scanner, writer));
     }
 
+    public static void show(Scanner scanner, Writer writer, DragonCave cave) throws  IOException {
+        println(writer, "Number of treasures: " + cave.getNumberOfTreasures());
+    }
+
     private static long readNumberOfTreasures(Scanner scanner, Writer writer) throws IOException {
         while (true) {
             print(writer, "Enter number of treasures: ");

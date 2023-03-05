@@ -43,6 +43,11 @@ public class ArrayListController implements CollectionController {
     }
 
     @Override
+    public boolean isEmpty() {
+        return size() == 0;
+    }
+
+    @Override
     public void updateById(Integer id, Dragon dragon) {
         dragons.set(getIndexById(id), dragon);
     }

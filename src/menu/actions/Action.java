@@ -1,5 +1,6 @@
 package menu.actions;
 
+import java.io.IOException;
 import java.io.Writer;
 import java.util.Scanner;
 
@@ -21,5 +22,5 @@ public abstract class Action {
         return description;
     }
 
-    public abstract boolean process(Scanner scanner, Writer writer);
+    public abstract boolean process(Scanner scanner, Writer writer) throws IOException;
 }

@@ -5,8 +5,8 @@ import model.Dragon;
 public interface CollectionController extends Iterable<Dragon> {
     int size();
     void add(Dragon dragon);
-
     boolean containsId(Integer id);
+    boolean isEmpty();
     void updateById(Integer id, Dragon dragon);
     void removeById(Integer id);
     void clear();

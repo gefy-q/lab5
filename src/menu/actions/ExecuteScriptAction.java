@@ -14,13 +14,8 @@ public class ExecuteScriptAction extends Action {
     }
 
     @Override
-    public boolean process(Scanner scanner, Writer writer) {
-        try {
-            menu.run(new InputStreamReader(new FileInputStream(scanner.next())), writer);
-        } catch (IOException e) {
-            // TODO: add exception handling
-            System.err.println(e.getMessage());
-        }
+    public boolean process(Scanner scanner, Writer writer) throws IOException {
+        menu.run(new InputStreamReader(new FileInputStream(scanner.next())), writer);
         return true;
     }
 }

@@ -1,5 +1,7 @@
 package representations.json;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import model.Coordinates;
 
@@ -11,7 +13,11 @@ public class JsonCoordinatesRepr {
     private final Long x;
     private final double y;
 
-    public JsonCoordinatesRepr(Long x, double y) {
+    @JsonCreator
+    public JsonCoordinatesRepr(
+            @JsonProperty("x") Long x,
+            @JsonProperty("y") double y
+    ) {
         this.x = x;
         this.y = y;
     }

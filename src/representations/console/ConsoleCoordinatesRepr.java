@@ -27,6 +27,10 @@ public class ConsoleCoordinatesRepr extends ConsoleRepr {
         return new ConsoleCoordinatesRepr(readX(scanner, writer), readY(scanner, writer));
     }
 
+    public static void show(Scanner scanner, Writer writer, Coordinates coordinates) throws IOException {
+        println(writer, String.format("x: %d, y: %.2f", coordinates.getX(), coordinates.getY()));
+    }
+
     private static Long readX(Scanner scanner, Writer writer) throws IOException {
         while (true) {
             print(writer, "Enter X coordinate: ");
