@@ -28,19 +28,7 @@ public class AddAction extends Action {
     public boolean process(Scanner scanner, Writer writer) throws IOException {
         writer.write("Enter dragon fields\n");
         writer.flush();
-        ConsoleDragonRepr dragonRepr = ConsoleDragonRepr.read(scanner, writer);
-        Integer id;
-        do {
-            id = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
-        } while (controller.containsId(id));
-
-        ConsoleCoordinatesRepr coordinatesRepr = dragonRepr.getCoordinates();
-        Coordinates coordinates = new Coordinates(coordinatesRepr.getX(), coordinatesRepr.getY());
-
-        ConsoleDragonCaveRepr caveRepr = dragonRepr.getCave();
-        DragonCave cave = new DragonCave(caveRepr.getNumberOfTreasures());
-
-        controller.add(new Dragon(id, dragonRepr.getName(), coordinates, LocalDateTime.now(), dragonRepr.getAge(), dragonRepr.getDescription(), dragonRepr.getWingspan(), dragonRepr.getCharacter(), cave));
+        controller.add(ConsoleDragonRepr.readAsDragon(scanner, writer, controller.generateId()));
         return true;
     }
 }

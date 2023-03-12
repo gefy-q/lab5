@@ -2,12 +2,15 @@ package controllers;
 
 import model.Dragon;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class ArrayListController implements CollectionController {
     private final ArrayList<Dragon> dragons = new ArrayList<>();
+    private final LocalDateTime initTime = LocalDateTime.now();
 
     private int findIndexById(Integer id) {
         for (int i = 0; i < dragons.size(); ++i) {
@@ -25,6 +28,11 @@ public class ArrayListController implements CollectionController {
             throw new NoSuchElementException();
         }
         return index;
+    }
+
+    @Override
+    public LocalDateTime getInitTime() {
+        return this.initTime;
     }
 
     @Override
@@ -103,6 +111,16 @@ public class ArrayListController implements CollectionController {
             }
         }
         return count;
+    }
+
+    @Override
+    public int generateId() {
+        while (true) {
+            int id = ThreadLocalRandom.current().nextInt(0, Integer.MAX_VALUE);
+            if (!containsId(id)) {
+                return id;
+            }
+        }
     }
 
     @Override

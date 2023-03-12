@@ -1,5 +1,6 @@
 package representations.console;
 
+import model.Coordinates;
 import model.Dragon;
 import model.DragonCave;
 import model.DragonCharacter;
@@ -82,6 +83,18 @@ public class ConsoleDragonRepr extends ConsoleRepr {
         DragonCharacter character = readDragonCharacter(scanner, writer);
         ConsoleDragonCaveRepr cave = readDragonCave(scanner, writer);
         return new ConsoleDragonRepr(name, coordinates, age, description, wingspan, character, cave);
+    }
+
+    public static Dragon readAsDragon(Scanner scanner, Writer writer, Integer id) throws IOException {
+        ConsoleDragonRepr dragonRepr = ConsoleDragonRepr.read(scanner, writer);
+
+        ConsoleCoordinatesRepr coordinatesRepr = dragonRepr.getCoordinates();
+        Coordinates coordinates = new Coordinates(coordinatesRepr.getX(), coordinatesRepr.getY());
+
+        ConsoleDragonCaveRepr caveRepr = dragonRepr.getCave();
+        DragonCave cave = new DragonCave(caveRepr.getNumberOfTreasures());
+
+        return new Dragon(id, dragonRepr.getName(), coordinates, LocalDateTime.now(), dragonRepr.getAge(), dragonRepr.getDescription(), dragonRepr.getWingspan(), dragonRepr.getCharacter(), cave);
     }
 
     public static void show(Scanner scanner, Writer writer, Dragon dragon) throws IOException {

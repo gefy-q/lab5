@@ -2,7 +2,10 @@ package controllers;
 
 import model.Dragon;
 
+import java.time.LocalDateTime;
+
 public interface CollectionController extends Iterable<Dragon> {
+    LocalDateTime getInitTime();
     int size();
     void add(Dragon dragon);
     boolean containsId(Integer id);
@@ -15,4 +18,6 @@ public interface CollectionController extends Iterable<Dragon> {
     void removeGreater(Dragon dragon);
     int countByAge(Integer age);
     int countLessThanWingspan(Double wingspan);
+
+    int generateId();
 }

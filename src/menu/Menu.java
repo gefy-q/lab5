@@ -66,8 +66,7 @@ public class Menu {
             }
             writer.flush();
         } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
-            // TODO: add exception handling
+            System.err.println("Error. " + e.getMessage());
         }
         return true;
     }

@@ -1,15 +1,23 @@
 package menu.actions;
 
 import controllers.CollectionController;
+import model.Coordinates;
+import model.Dragon;
+import model.DragonCave;
+import representations.console.ConsoleCoordinatesRepr;
+import representations.console.ConsoleDragonCaveRepr;
+import representations.console.ConsoleDragonRepr;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.time.LocalDateTime;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
-public class RemoveByIdAction extends Action {
-    private final CollectionController controller;
+public class UpdateByIdAction extends Action {
+    private CollectionController controller;
 
-    public RemoveByIdAction(CollectionController controller, String args, String description) {
+    public UpdateByIdAction(CollectionController controller, String args, String description) {
         super(args, description);
         this.controller = controller;
     }
@@ -35,10 +43,11 @@ public class RemoveByIdAction extends Action {
             writer.flush();
             return true;
         }
-        controller.removeById(id);
 
-        writer.write("Dragon was successfully removed\n");
+        writer.write("Update dragon\n");
         writer.flush();
+
+        controller.updateById(id, ConsoleDragonRepr.readAsDragon(scanner, writer, id));
         return true;
     }
 }
