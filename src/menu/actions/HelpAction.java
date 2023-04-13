@@ -1,3 +1,7 @@
+/*
+Выводит все команды, которые получает из менюшки
+ */
+
 package menu.actions;
 
 import menu.Menu;
