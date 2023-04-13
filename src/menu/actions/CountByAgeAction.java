@@ -1,3 +1,6 @@
+/*
+Получает число и считает, сколько дракончиков ему соответствует, отдает ответ
+*/
 package menu.actions;
 
 import controllers.CollectionController;
@@ -16,15 +19,28 @@ public class CountByAgeAction extends Action {
 
     @Override
     public boolean process(Scanner scanner, Writer writer) throws IOException {
-        if (!scanner.hasNextInt()) {
-            writer.write("Age must be an positive integer\n");
+        while (true) {
+            String name;
+            writer.write("Enter name: ");
             writer.flush();
-            scanner.next();
-            return true;
+            while (scanner.hasNextLine()) {
+                name = scanner.nextLine().trim();
+                if (name.isEmpty()) {
+                    writer.write("Age cannot be empty");
+                    writer.write(System.lineSeparator());
+                    writer.flush();
+                    continue;
+                }
+                else if (!name.matches("\\d+")) {
+                    writer.write("Age must be an positive integer\n");
+                    writer.flush();
+                    continue;
+                }
+                int age = Integer.parseInt(name);
+                writer.write(String.format("With this age found %d dragons\n", controller.countByAge(age)));
+                writer.flush();
+                return true;
+            }
         }
-
-        int age = scanner.nextInt();
-        writer.write(String.format("With this age found %d dragons\n", controller.countByAge(age)));
-        return true;
     }
 }
