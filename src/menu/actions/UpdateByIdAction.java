@@ -1,3 +1,7 @@
+/*
+Изменение id дракончика
+ */
+
 package menu.actions;
 
 import controllers.CollectionController;
