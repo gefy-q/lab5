@@ -1,3 +1,6 @@
+/*
+Для работы с координатами
+ */
 package model;
 
 public class Coordinates {
