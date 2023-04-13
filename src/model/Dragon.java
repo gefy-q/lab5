@@ -1,3 +1,6 @@
+/*
+Информация по самим дракончикам коллекции
+ */
 package model;
 
 import java.time.LocalDateTime;
