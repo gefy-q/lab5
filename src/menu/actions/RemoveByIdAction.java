@@ -1,3 +1,6 @@
+/*
+Удаляет элемент с определенной позиции
+ */
 package menu.actions;
 
 import controllers.CollectionController;
