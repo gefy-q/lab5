@@ -1,3 +1,6 @@
+/*
+Класс - основа для действий.
+*/
 package menu.actions;
 
 import java.io.IOException;
@@ -9,7 +12,6 @@ public abstract class Action {
     protected final String description;
 
     public Action(String args, String description) {
-        // TODO: add validation
         this.args = args;
         this.description = description;
     }
