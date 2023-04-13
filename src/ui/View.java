@@ -1,3 +1,6 @@
+/*
+Информация по командам
+ */
 package ui;
 
 import controllers.CollectionController;
