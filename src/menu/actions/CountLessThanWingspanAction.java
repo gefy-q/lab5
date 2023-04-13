@@ -1,3 +1,7 @@
+/*
+Подсчитывает сколько дракончиков имеют меньший размах крыльев, чем введенный. Получает число, возвращает количество
+ */
+
 package menu.actions;
 
 import controllers.CollectionController;
