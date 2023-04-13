@@ -1,3 +1,6 @@
+/*
+Обозревательные действия
+ */
 package menu;
 
 import java.io.*;
