@@ -1,3 +1,7 @@
+/*
+Очищает коллекцию
+ */
+
 package menu.actions;
 
 import controllers.CollectionController;
