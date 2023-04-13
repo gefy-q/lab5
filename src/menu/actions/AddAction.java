@@ -1,3 +1,6 @@
+/*
+Действие для добавления элемента в коллекцию
+ */
 package menu.actions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -29,6 +32,8 @@ public class AddAction extends Action {
         writer.write("Enter dragon fields\n");
         writer.flush();
         controller.add(ConsoleDragonRepr.readAsDragon(scanner, writer, controller.generateId()));
+        writer.write("Dragon has been added\n");
+        writer.flush();
         return true;
     }
 }
