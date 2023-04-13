@@ -1,3 +1,6 @@
+/*
+Сохраняет коллекцию в переданный файл
+ */
 package menu.actions;
 
 import controllers.CollectionController;
