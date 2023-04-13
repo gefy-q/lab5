@@ -1,3 +1,6 @@
+/*
+Виды дракончиков
+ */
 package model;
 
 public enum DragonCharacter {
