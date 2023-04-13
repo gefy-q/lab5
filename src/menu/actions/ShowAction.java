@@ -1,3 +1,6 @@
+/*
+Выводит элементы коллекции, сначала часть, потом можно выбрать, что именно нужно узнать
+ */
 package menu.actions;
 
 import controllers.CollectionController;
