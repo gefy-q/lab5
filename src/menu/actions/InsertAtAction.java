@@ -1,3 +1,6 @@
+/*
+Добавляет новый элемент, но на определенную позицию
+ */
 package menu.actions;
 
 import controllers.CollectionController;
