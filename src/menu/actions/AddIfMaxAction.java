@@ -1,3 +1,7 @@
+/*
+Добавить элемент, если введенный, больше наибольшего в коллекции. Часть исполнения в ArrayListController.
+ */
+
 package menu.actions;
 
 import controllers.CollectionController;
