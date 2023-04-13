@@ -1,3 +1,6 @@
+/*
+Выводит дракончиков по заданному имени
+ */
 package menu.actions;
 
 import controllers.CollectionController;
