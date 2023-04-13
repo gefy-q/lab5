@@ -1,3 +1,6 @@
+/*
+Для заполнения сокровищ
+ */
 package model;
 
 public class DragonCave {
