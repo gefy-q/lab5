@@ -1,5 +1,9 @@
-package representations.console;
+/*
+Считывает данные для заполнения коллекции с драконом и для вывода, связанных с ними данных
 
+*/
+
+package representations.console;
 import model.Coordinates;
 import model.Dragon;
 import model.DragonCave;
@@ -144,14 +148,16 @@ public class ConsoleDragonRepr extends ConsoleRepr {
 
     private static String readName(Scanner scanner, Writer writer) throws IOException {
         while (true) {
+            String name;
             print(writer, "Enter name: ");
-            String name = scanner.next().trim();
-            if (name.isEmpty()) {
-                scanner.next();
-                println(writer, "Name cannot be empty");
-                continue;
+            while (scanner.hasNextLine()) {
+                name = scanner.nextLine().trim();
+                if (name.isEmpty()) {
+                    println(writer, "Name cannot be empty");
+                    continue;
+                }
+                return name;
             }
-            return name;
         }
     }
 
@@ -178,8 +184,18 @@ public class ConsoleDragonRepr extends ConsoleRepr {
     }
 
     private static String readDescription(Scanner scanner, Writer writer) throws IOException {
-        print(writer, "Enter description: ");
-        return scanner.next().trim();
+        while (true) {
+            String description;
+            print(writer, "Enter description: ");
+            while (scanner.hasNextLine()) {
+                description = scanner.nextLine().trim();
+                if (description.isEmpty()) {
+                    println(writer, "Description cannot be empty");
+                    continue;
+                }
+                return description;
+            }
+        }
     }
 
     private static Double readWingspan(Scanner scanner, Writer writer) throws IOException {
