@@ -1,3 +1,7 @@
+/*
+Действия, связанные с коллекцией
+ */
+
 package controllers;
 
 import model.Dragon;
@@ -24,7 +28,6 @@ public class ArrayListController implements CollectionController {
     private int getIndexById(Integer id) {
         int index = findIndexById(id);
         if (id == -1) {
-            // TODO: add exception
             throw new NoSuchElementException();
         }
         return index;
