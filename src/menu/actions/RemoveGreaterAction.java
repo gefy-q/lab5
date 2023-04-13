@@ -1,3 +1,6 @@
+/*
+Удаляет самый большой элемент
+ */
 package menu.actions;
 
 import controllers.CollectionController;
