@@ -1,3 +1,7 @@
+/*
+Для выхода из программы
+ */
+
 package menu.actions;
 
 import java.io.Writer;
