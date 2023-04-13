@@ -1,3 +1,6 @@
+/*
+Получение сокровищ и действия для вывода с ними
+ */
 package representations.console;
 
 import model.DragonCave;
