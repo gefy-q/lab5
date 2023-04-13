@@ -1,3 +1,6 @@
+/*
+Выводит информацию о коллекции
+ */
 package menu.actions;
 
 import controllers.CollectionController;
