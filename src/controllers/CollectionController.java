@@ -1,3 +1,7 @@
+/*
+Интерфейс всех действий, связанных с коллекцией
+ */
+
 package controllers;
 
 import model.Dragon;
