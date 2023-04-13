@@ -1,3 +1,7 @@
+/*
+Для того, чтобы вывод постоянно не писать такой большой
+ */
+
 package representations.console;
 
 import menu.actions.Action;
